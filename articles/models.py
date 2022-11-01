@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import User
+from django.urls import reverse
 
 class Article(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -12,6 +13,10 @@ class Article(models.Model):
     
     def __str__(self):
         return str(self.title)
+    
+    def get_absolute_url(self):
+        return reverse('article_detail_view', kwargs={"article_id":self.id})
+    
     
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

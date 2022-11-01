@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
-
+from django.urls import reverse
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -63,6 +63,9 @@ class User(AbstractBaseUser):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
+    
+    def get_absolute_url(self):
+        return reverse('user_view')
 
     @property
     def is_staff(self):
